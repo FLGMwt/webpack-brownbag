@@ -1,0 +1,99 @@
+mkdir bb
+cd bb
+npm init -y
+npm install --save lodash
+npm install --save cowsay
+
+code .
+node_modules/cowsay/bin.js feed me, seymour
+node_modules/.bin/cowsay feed me, seymour
+npm scripts
+"start": "cowsay feed me, seymour"
+
+cd ../
+rimraf bb
+mkdir bb
+cd bb
+
+npm init -y
+npm install --save-dev webpack
+code .
+make src/app.js
+
+const feeder = () => console.log('feed me, seymour)
+
+node_modules/.bin/webpack src/app.js dist/bundle.js
+look at bundle.js
+node bundle.js
+"build": "webpack src/app.js dist/bundle.js"
+npm run build
+node dist/bundle.js
+
+add src/feeder.js
+const feeder = () => console.log('feed me, seymor)
+export default feeder
+
+import feeder from './feeder'
+
+change feeder to class
+
+add webpack.config.js
+var webpack = require('webpack');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: __dirname + '/dist',
+    filename: 'bundle.js'
+  }
+}
+change npm script to just webpack
+
+point out that bundle.js still has "class" in it
+if we wanted to make this run in browsers, this wouldn't work.
+transpile/compile to older ES version
+
+npm install --save-dev babel-loader babel-core
+
+module: {
+  rules: [
+    test: /\.js$/
+    use: 'babel-loader'
+    exclude: /node_modules/
+  ]
+}
+
+run again, point out we *still* have classes, but different babel references
+
+note that babel loads/processes modules, but by default doesn't transform them
+
+npm install --save-dev babel-preset-env
+you might have seen babel-preset-es2015, env is the way to go now
+
+add .babelrc
+
+{
+  "presets": ["env"]
+}
+
+npm run build
+show bundle.js
+
+
+loaders deal with single modules/files
+plugins deal with the pipeline and extend the build process
+
+npm install --save-dev html-webpack-plugin
+
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+plugins: [
+  new HtmlWebpackPlugin({
+    title: 'Brownbag!'
+  })
+]
+
+npm run build
+ls dist
+open dist/index.html
+
+
